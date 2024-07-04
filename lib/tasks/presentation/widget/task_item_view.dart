@@ -37,6 +37,7 @@ class _TaskItemViewState extends State<TaskItemView> {
                       id: widget.taskModel.id,
                       title: widget.taskModel.title,
                       description: widget.taskModel.description,
+                      detail: widget.taskModel.detail,
                       completed: !widget.taskModel.completed,
                       startDateTime: widget.taskModel.startDateTime,
                       stopDateTime: widget.taskModel.stopDateTime);
@@ -117,6 +118,15 @@ class _TaskItemViewState extends State<TaskItemView> {
                   ),
                   buildText(widget.taskModel.description, kGrey1, textSmall, FontWeight.normal, TextAlign.start,
                       TextOverflow.clip),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  const Divider(
+                    color: kGrey2,
+                    height: 1,
+                  ),
+                  buildText('Detalhes: ${widget.taskModel.detail}', kGrey1, textSmall, FontWeight.normal,
+                      TextAlign.start, TextOverflow.clip),
                   const SizedBox(
                     height: 15,
                   ),

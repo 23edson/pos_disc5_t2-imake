@@ -27,8 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
-        create: (context) =>
-            TaskRepository(taskDataProvider: TaskDataProvider(preferences)),
+        create: (context) => TaskRepository(taskDataProvider: TaskDataProvider(preferences)),
         child: BlocProvider(
             create: (context) => TasksBloc(context.read<TaskRepository>()),
             child: MaterialApp(

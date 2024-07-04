@@ -28,13 +28,13 @@ void main() {
 
   group('Task', () {
     test('Add new task', () async {
-      final SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
+      final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
       sut = TaskDataProvider(sharedPreferences);
       final task = TaskModel(
           id: 'id',
           title: 'title',
           description: 'description',
+          detail: 'detail',
           startDateTime: DateTime.now(),
           stopDateTime: DateTime.now());
       expect(sut.tasks.length, 0);
@@ -43,13 +43,13 @@ void main() {
     });
 
     test('Update task', () async {
-      final SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
+      final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
       sut = TaskDataProvider(sharedPreferences);
       final task = TaskModel(
           id: 'id',
           title: 'title',
           description: 'description',
+          detail: 'detail',
           startDateTime: DateTime.now(),
           stopDateTime: DateTime.now());
       sut.createTask(task);
@@ -58,6 +58,7 @@ void main() {
           id: 'id',
           title: 'new title',
           description: 'new description',
+          detail: 'detail',
           startDateTime: DateTime.now(),
           stopDateTime: DateTime.now());
       sut.updateTask(updatedTask);
@@ -66,13 +67,13 @@ void main() {
     });
 
     test('Delete task', () async {
-      final SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
+      final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
       sut = TaskDataProvider(sharedPreferences);
       final task = TaskModel(
           id: 'delete_task_id',
           title: 'delete_task_title',
           description: 'delete_task_description',
+          detail: 'detail',
           startDateTime: DateTime.now(),
           stopDateTime: DateTime.now());
       sut.createTask(task);

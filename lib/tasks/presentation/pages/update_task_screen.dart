@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:imake/components/widgets.dart';
@@ -27,6 +28,7 @@ class UpdateTaskScreen extends StatefulWidget {
 class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
   TextEditingController title = TextEditingController();
   TextEditingController description = TextEditingController();
+  TextEditingController detail = TextEditingController();
 
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
@@ -173,6 +175,7 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                                       id: widget.taskModel.id,
                                       title: title.text,
                                       description: description.text,
+                                      detail: detail.text,
                                       completed: widget.taskModel.completed,
                                       startDateTime: _rangeStart,
                                       stopDateTime: _rangeEnd);
