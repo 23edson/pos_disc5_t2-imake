@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:imake/about_us.dart';
 import 'package:imake/page_login.dart';
 import 'package:imake/routes/pages.dart';
 import 'package:imake/splash_screen.dart';
@@ -28,6 +29,11 @@ Route onGenerateRoute(RouteSettings routeSettings) {
       final args = routeSettings.arguments as TaskModel;
       return MaterialPageRoute(
         builder: (context) => UpdateTaskScreen(taskModel: args),
+      );
+
+    case Pages.about:
+      return MaterialPageRoute(
+        builder: (context) => AboutUsScreen(),
       );
 
     default:

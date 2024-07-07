@@ -43,10 +43,84 @@ class _TasksScreenState extends State<TasksScreen> {
         child: ScaffoldMessenger(
             child: Scaffold(
                 backgroundColor: kWhiteColor,
-                appBar: CustomAppBar(
-                  title: '?',
-                  showBackArrow: false,
-                  actionWidgets: [
+                appBar: CustomAppBar(title: '?', showBackArrow: false, actionWidgets: [
+                  Row(children: [
+                    PopupMenuButton<int>(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      elevation: 1,
+                      onSelected: (value) {
+                        switch (value) {
+                          case 0:
+                            {
+                              context.read<TasksBloc>().add(SortTaskEvent(sortOption: 1));
+                              break;
+                            }
+                          case 1:
+                            {
+                              context.read<TasksBloc>().add(SortTaskEvent(sortOption: 2));
+                              break;
+                            }
+                        }
+                      },
+                      itemBuilder: (BuildContext context) {
+                        return [
+                          PopupMenuItem<int>(
+                            value: 1,
+                            child: Row(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/svgs/sort-numeric-down.svg',
+                                  width: 15,
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                buildText('Ascendente', kBlackColor, textSmall, FontWeight.normal, TextAlign.start,
+                                    TextOverflow.clip)
+                              ],
+                            ),
+                            onTap: () {
+                              context.read<TasksBloc>().add(OrderByDateEvent(isAscending: true));
+                            },
+                          ),
+                          PopupMenuItem<int>(
+                            value: 2,
+                            child: Row(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/svgs/sort-numeric-up.svg',
+                                  width: 15,
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                buildText('Descendente', kBlackColor, textSmall, FontWeight.normal, TextAlign.start,
+                                    TextOverflow.clip)
+                              ],
+                            ),
+                            onTap: () {
+                              context.read<TasksBloc>().add(OrderByDateEvent(isAscending: false));
+                            },
+                          ),
+                        ];
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 1),
+                        child: SvgPicture.asset(
+                          'assets/svgs/sort.svg',
+                          width: 24,
+                          height: 24,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(right: 17),
+                    ),
                     PopupMenuButton<int>(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
@@ -107,8 +181,8 @@ class _TasksScreenState extends State<TasksScreen> {
                         child: SvgPicture.asset('assets/svgs/filter.svg'),
                       ),
                     ),
-                  ],
-                ),
+                  ]),
+                ]),
                 body: GestureDetector(
                     behavior: HitTestBehavior.opaque,
                     onTap: () => FocusScope.of(context).unfocus(),
@@ -123,6 +197,8 @@ class _TasksScreenState extends State<TasksScreen> {
                             context.read<TasksBloc>().add(FetchTaskEvent());
                           }
                         }, builder: (context, state) {
+                          print('oioioioioi');
+                          print(state);
                           if (state is TasksLoading) {
                             return const Center(
                               child: CupertinoActivityIndicator(),
@@ -160,6 +236,7 @@ class _TasksScreenState extends State<TasksScreen> {
                                         shrinkWrap: true,
                                         itemCount: state.tasks.length,
                                         itemBuilder: (context, index) {
+                                          print('######################## ${state.tasks}');
                                           return TaskItemView(taskModel: state.tasks[index]);
                                         },
                                         separatorBuilder: (BuildContext context, int index) {
@@ -198,13 +275,27 @@ class _TasksScreenState extends State<TasksScreen> {
                           }
                           return Container();
                         }))),
-                floatingActionButton: FloatingActionButton(
-                    child: const Icon(
-                      Icons.add_circle,
-                      color: kPrimaryColor,
-                    ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, Pages.createNewTask);
-                    }))));
+                floatingActionButton: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  FloatingActionButton(
+                      child: const Icon(
+                        Icons.help,
+                        color: kPrimaryColor,
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, Pages.about);
+                      }),
+                  const SizedBox(
+                    height: 20,
+                    width: 20,
+                  ),
+                  FloatingActionButton(
+                      child: const Icon(
+                        Icons.add_circle,
+                        color: kPrimaryColor,
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, Pages.createNewTask);
+                      })
+                ]))));
   }
 }

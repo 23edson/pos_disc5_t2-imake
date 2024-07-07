@@ -37,3 +37,9 @@ class SearchTaskEvent extends TasksEvent {
 
   SearchTaskEvent({required this.keywords});
 }
+
+class OrderByDateEvent extends TasksEvent {
+  final bool isAscending;
+
+  OrderByDateEvent({required this.isAscending});
+}

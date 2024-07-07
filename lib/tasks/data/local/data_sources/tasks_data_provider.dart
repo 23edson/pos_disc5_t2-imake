@@ -15,9 +15,7 @@ class TaskDataProvider {
     try {
       final List<String>? savedTasks = prefs!.getStringList(Constants.taskKey);
       if (savedTasks != null) {
-        tasks = savedTasks
-            .map((taskJson) => TaskModel.fromJson(json.decode(taskJson)))
-            .toList();
+        tasks = savedTasks.map((taskJson) => TaskModel.fromJson(json.decode(taskJson))).toList();
         tasks.sort((a, b) {
           if (a.completed == b.completed) {
             return 0;
@@ -66,8 +64,7 @@ class TaskDataProvider {
   Future<void> createTask(TaskModel taskModel) async {
     try {
       tasks.add(taskModel);
-      final List<String> taskJsonList =
-          tasks.map((task) => json.encode(task.toJson())).toList();
+      final List<String> taskJsonList = tasks.map((task) => json.encode(task.toJson())).toList();
       await prefs!.setStringList(Constants.taskKey, taskJsonList);
     } catch (exception) {
       throw Exception(handleException(exception));
@@ -76,8 +73,7 @@ class TaskDataProvider {
 
   Future<List<TaskModel>> updateTask(TaskModel taskModel) async {
     try {
-      tasks[tasks.indexWhere((element) => element.id == taskModel.id)] =
-          taskModel;
+      tasks[tasks.indexWhere((element) => element.id == taskModel.id)] = taskModel;
       tasks.sort((a, b) {
         if (a.completed == b.completed) {
           return 0;
@@ -87,8 +83,7 @@ class TaskDataProvider {
           return -1;
         }
       });
-      final List<String> taskJsonList =
-          tasks.map((task) => json.encode(task.toJson())).toList();
+      final List<String> taskJsonList = tasks.map((task) => json.encode(task.toJson())).toList();
       prefs!.setStringList(Constants.taskKey, taskJsonList);
       return tasks;
     } catch (exception) {
@@ -99,8 +94,7 @@ class TaskDataProvider {
   Future<List<TaskModel>> deleteTask(TaskModel taskModel) async {
     try {
       tasks.remove(taskModel);
-      final List<String> taskJsonList =
-          tasks.map((task) => json.encode(task.toJson())).toList();
+      final List<String> taskJsonList = tasks.map((task) => json.encode(task.toJson())).toList();
       prefs!.setStringList(Constants.taskKey, taskJsonList);
       return tasks;
     } catch (exception) {
@@ -113,9 +107,31 @@ class TaskDataProvider {
     List<TaskModel> matchedTasked = tasks;
     return matchedTasked.where((task) {
       final titleMatches = task.title.toLowerCase().contains(searchText);
-      final descriptionMatches =
-          task.description.toLowerCase().contains(searchText);
+      final descriptionMatches = task.description.toLowerCase().contains(searchText);
       return titleMatches || descriptionMatches;
     }).toList();
+  }
+
+  Future<List<TaskModel>> orderByDate(isAscending) async {
+    print('djjjjjjjjjjjjjjjjjjjjjjjjjj');
+    print(isAscending);
+    print(tasks);
+
+    try {
+      tasks.sort((a, b) {
+        if (a.startDateTime == null || b.startDateTime == null) {
+          throw Exception('A data inicial de alguma tarefa é inválida');
+        }
+        if (isAscending) {
+          return a.startDateTime!.compareTo(b.startDateTime!);
+        } else {
+          return b.startDateTime!.compareTo(a.startDateTime!);
+        }
+      });
+      print(tasks);
+      return tasks;
+    } catch (e) {
+      throw Exception(handleException(e));
+    }
   }
 }
