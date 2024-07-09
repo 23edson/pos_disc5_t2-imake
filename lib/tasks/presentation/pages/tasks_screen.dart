@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:imake/components/custom_app_bar.dart';
@@ -181,6 +182,7 @@ class _TasksScreenState extends State<TasksScreen> {
                         child: SvgPicture.asset('assets/svgs/filter.svg'),
                       ),
                     ),
+                    IconButton(onPressed: () => Navigator.pushNamed(context, Pages.login), icon: Icon(Icons.logout))
                   ]),
                 ]),
                 body: GestureDetector(
@@ -197,8 +199,6 @@ class _TasksScreenState extends State<TasksScreen> {
                             context.read<TasksBloc>().add(FetchTaskEvent());
                           }
                         }, builder: (context, state) {
-                          print('oioioioioi');
-                          print(state);
                           if (state is TasksLoading) {
                             return const Center(
                               child: CupertinoActivityIndicator(),
@@ -236,7 +236,6 @@ class _TasksScreenState extends State<TasksScreen> {
                                         shrinkWrap: true,
                                         itemCount: state.tasks.length,
                                         itemBuilder: (context, index) {
-                                          print('######################## ${state.tasks}');
                                           return TaskItemView(taskModel: state.tasks[index]);
                                         },
                                         separatorBuilder: (BuildContext context, int index) {

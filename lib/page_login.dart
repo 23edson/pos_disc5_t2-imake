@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imake/components/build_text_field.dart';
+import 'package:imake/components/loading.dart';
 import 'package:imake/routes/pages.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -15,8 +16,14 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _hidePassword = true;
 
   _login(context) {
-    print('Username: ${_usernameController.text}');
-    print('Password: ${_passwordController.text}');
+    if (_usernameController.text.isEmpty || _passwordController.text.isEmpty) {
+      return false;
+    }
+
+    //user: admin, senha: admin
+    if (_usernameController.text != 'admin' || _passwordController.text != 'admin') {
+      return false;
+    }
 
     return true;
   }
@@ -25,7 +32,6 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _hidePassword = !_hidePassword;
     });
-    print('Password visibility');
   }
 
   startTimer() async {
@@ -48,62 +54,58 @@ class _LoginScreenState extends State<LoginScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           RichText(
-              text: TextSpan(
-            text: 'IMake ',
+              text: const TextSpan(
+            text: 'T2 - Pós',
             style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 15, 76, 126)),
             children: <TextSpan>[
-              TextSpan(text: 'Tasks', style: TextStyle(fontWeight: FontWeight.normal, color: Colors.black)),
+              TextSpan(text: '-app', style: TextStyle(fontWeight: FontWeight.normal, color: Colors.black)),
             ],
           )),
-          Text('Faça o login', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          const Text('Faça o login', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           BuildTextField(
             hint: 'E-mail',
             controller: _usernameController,
             inputType: TextInputType.emailAddress,
-            prefixIcon: Icon(Icons.email),
-            onChange: (context) {
-              print('Username: ${_usernameController.text}');
-            },
+            prefixIcon: const Icon(Icons.email),
+            onChange: (context) {},
           ),
           const SizedBox(height: 10),
           BuildTextField(
             hint: 'Password',
             controller: _passwordController,
             inputType: TextInputType.text,
-            prefixIcon: Icon(Icons.password),
+            prefixIcon: const Icon(Icons.password),
             obscureText: _hidePassword,
             suffixIcon: IconButton(
               onPressed: () {
                 _passwordVisibility();
-                print('Password: ${_passwordController.text}');
               },
-              icon: _hidePassword ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
+              icon: _hidePassword ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
             ),
-            onChange: (context) {
-              print('Username: ${_usernameController.text}');
-            },
+            onChange: (context) {},
           ),
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
-              bool _validate = _login(context);
-              if (!_validate) {
+              bool validate = _login(context);
+
+              if (!validate) {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('Credenciais inválidas!'),
-                  duration: Duration(seconds: 2),
+                  content: const Text('Credenciais inválidas!'),
+                  duration: const Duration(seconds: 2),
                   backgroundColor: Colors.red[300],
                 ));
               } else {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text('Acesso validado com sucesso!'),
                   duration: Duration(seconds: 2),
                 ));
-
+                Loading().show(context);
                 startTimer();
               }
             },
-            child: Text('Validar acesso'),
+            child: const Text('Validar acesso'),
           ),
         ],
       ),

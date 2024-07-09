@@ -38,13 +38,13 @@ class _SplashScreenState extends State<SplashScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/images/app_logo.png',
+              'assets/images/planning.png',
               width: 100,
             ),
             const SizedBox(
               height: 20,
             ),
-            buildText('IMake Tasks', kWhiteColor, textBold, FontWeight.w600, TextAlign.center, TextOverflow.clip),
+            buildText('T2 - pós-app', kWhiteColor, textBold, FontWeight.w600, TextAlign.center, TextOverflow.clip),
             const SizedBox(
               height: 10,
             ),
