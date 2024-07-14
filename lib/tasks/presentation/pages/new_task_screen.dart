@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:imake/components/widgets.dart';
@@ -216,6 +215,10 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                           )
                         ],
                       );
-                    })))));
+                    })
+                )
+            )
+        )
+    );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:imake/components/custom_app_bar.dart';
@@ -182,7 +181,11 @@ class _TasksScreenState extends State<TasksScreen> {
                         child: SvgPicture.asset('assets/svgs/filter.svg'),
                       ),
                     ),
-                    IconButton(onPressed: () => Navigator.pushNamed(context, Pages.login), icon: Icon(Icons.logout))
+                    IconButton(
+                        onPressed: () => 
+                            Navigator.pushNamed(context, Pages.login), 
+                            icon: const Icon(Icons.logout)
+                    )
                   ]),
                 ]),
                 body: GestureDetector(
@@ -274,27 +277,37 @@ class _TasksScreenState extends State<TasksScreen> {
                           }
                           return Container();
                         }))),
-                floatingActionButton: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-                  FloatingActionButton(
-                      child: const Icon(
-                        Icons.help,
-                        color: kPrimaryColor,
-                      ),
-                      onPressed: () {
-                        Navigator.pushNamed(context, Pages.about);
-                      }),
-                  const SizedBox(
-                    height: 20,
-                    width: 20,
-                  ),
-                  FloatingActionButton(
-                      child: const Icon(
-                        Icons.add_circle,
-                        color: kPrimaryColor,
-                      ),
-                      onPressed: () {
-                        Navigator.pushNamed(context, Pages.createNewTask);
-                      })
-                ]))));
+                floatingActionButton: Column(
+                    mainAxisAlignment: MainAxisAlignment.end, 
+                    children: [
+                        FloatingActionButton(
+                            onPressed: () {
+                                Navigator.pushNamed(context, Pages.about);
+                            },
+                            heroTag: null,
+                            child: const Icon(
+                                Icons.help,
+                                color: kPrimaryColor,
+                            ),
+                        ),
+                        const SizedBox(
+                            height: 20,
+                            width: 20,
+                        ),
+                        FloatingActionButton(
+                            onPressed: () {
+                                Navigator.pushNamed(context, Pages.createNewTask);
+                            },
+                            heroTag: null,
+                            child: const Icon(
+                                Icons.add_circle,
+                                color: kPrimaryColor,
+                            ),
+                        )
+                    ]
+                )
+            )
+        )
+    );
   }
 }

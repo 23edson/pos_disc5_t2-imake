@@ -113,10 +113,6 @@ class TaskDataProvider {
   }
 
   Future<List<TaskModel>> orderByDate(isAscending) async {
-    print('djjjjjjjjjjjjjjjjjjjjjjjjjj');
-    print(isAscending);
-    print(tasks);
-
     try {
       tasks.sort((a, b) {
         if (a.startDateTime == null || b.startDateTime == null) {
@@ -128,7 +124,6 @@ class TaskDataProvider {
           return b.startDateTime!.compareTo(a.startDateTime!);
         }
       });
-      print(tasks);
       return tasks;
     } catch (e) {
       throw Exception(handleException(e));

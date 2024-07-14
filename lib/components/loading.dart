@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class Loading {
   late BuildContext context;
@@ -10,13 +9,14 @@ class Loading {
         builder: (context) {
           return Container(
             color: Colors.grey,
-            child: Center(
+            child: const Center(
               child: CircularProgressIndicator(
                 color: Color.fromARGB(255, 48, 60, 221),
               ),
             ),
           );
-        });
+        }
+    );
   }
 
   Future<void> hide(BuildContext context) async {

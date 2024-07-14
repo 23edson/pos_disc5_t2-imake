@@ -11,12 +11,13 @@ import 'package:imake/tasks/presentation/pages/update_task_screen.dart';
 import '../page_not_found.dart';
 
 Route onGenerateRoute(RouteSettings routeSettings) {
-  print(routeSettings.name);
   switch (routeSettings.name) {
     case Pages.initial:
-      return MaterialPageRoute(builder: (context) => const SplashScreen());
+      return MaterialPageRoute(
+        builder: (context) => const SplashScreen());
     case Pages.login:
-      return MaterialPageRoute(builder: (context) => const LoginScreen());
+      return MaterialPageRoute(
+        builder: (context) => const LoginScreen());
     case Pages.home:
       return MaterialPageRoute(
         builder: (context) => const TasksScreen(),
@@ -33,7 +34,7 @@ Route onGenerateRoute(RouteSettings routeSettings) {
 
     case Pages.about:
       return MaterialPageRoute(
-        builder: (context) => AboutUsScreen(),
+        builder: (context) => const AboutUsScreen(),
       );
 
     default:

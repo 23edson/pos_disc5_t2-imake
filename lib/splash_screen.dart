@@ -12,45 +12,47 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    startTimer();
-    super.initState();
-  }
+    @override
+    void initState() {
+        startTimer();
+        super.initState();
+    }
 
-  startTimer() async {
-    Future.delayed(const Duration(milliseconds: 3000), () {
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        Pages.login,
-        (route) => false,
-      );
-    });
-  }
+    startTimer() async {
+        Future.delayed(const Duration(milliseconds: 3000), () {
+        Navigator.pushNamedAndRemoveUntil(
+            context,
+            Pages.login,
+            (route) => false,
+        );
+        });
+    }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: kPrimaryColor,
-        body: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/planning.png',
-              width: 100,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            buildText('T2 - pós-app', kWhiteColor, textBold, FontWeight.w600, TextAlign.center, TextOverflow.clip),
-            const SizedBox(
-              height: 10,
-            ),
-            buildText('Gerencie suas tarefas!', kWhiteColor, textTiny, FontWeight.normal, TextAlign.center,
-                TextOverflow.clip),
-          ],
-        )));
-  }
+    @override
+    Widget build(BuildContext context) {
+        return Scaffold(
+            backgroundColor: kPrimaryColor,
+            body: Center(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                        Image.asset(
+                        'assets/images/planning.png',
+                        width: 100,
+                        ),
+                        const SizedBox(
+                        height: 20,
+                        ),
+                        buildText('T2 - pós-app', kWhiteColor, textBold, FontWeight.w600, TextAlign.center, TextOverflow.clip),
+                        const SizedBox(
+                        height: 10,
+                        ),
+                        buildText('Gerencie suas tarefas!', kWhiteColor, textTiny, FontWeight.normal, TextAlign.center,
+                            TextOverflow.clip),
+                    ],
+                )
+            )
+        );
+    }
 }

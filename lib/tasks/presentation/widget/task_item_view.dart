@@ -10,9 +10,9 @@ import '../../data/local/model/task_model.dart';
 import '../bloc/tasks_bloc.dart';
 
 import '../bloc/tasks_event.dart';
-import '../bloc/tasks_state.dart';
 
 class TaskItemView extends StatefulWidget {
+
   final TaskModel taskModel;
   const TaskItemView({super.key, required this.taskModel});
 
@@ -21,6 +21,7 @@ class TaskItemView extends StatefulWidget {
 }
 
 class _TaskItemViewState extends State<TaskItemView> {
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -154,14 +155,15 @@ class _TaskItemViewState extends State<TaskItemView> {
                                 TextOverflow.clip),
                           )
                         ],
-                      )),
-                ],
+                      )
+                ),],
               ),
             ),
             const SizedBox(
               width: 10,
             ),
           ],
-        ));
+        )
+    );
   }
 }
